@@ -185,6 +185,13 @@
     XCTAssertEqualObjects(attributedString.string, @"Hello\n•\t Men att Pär är här\nmen inte Pia");
 }
 
+- (void)testThatDefaultListParsingRequiresSpaceBetweenAstrics {
+    NSAttributedString *attributedString = [self.standardParser attributedStringFromMarkdown:@"* right"];
+    XCTAssertEqualObjects(attributedString.string, @"•\t right");
+    attributedString = [self.standardParser attributedStringFromMarkdown:@"*wrong"];
+    XCTAssertEqualObjects(attributedString.string, @"*wrong");
+}
+
 - (void)testDefaultListWithAstricsParsingMultiple {
     NSAttributedString *attributedString = [self.standardParser attributedStringFromMarkdown:@"Hello\n* Men att Pär är här\n* Men inte Pia"];
     XCTAssertEqualObjects(attributedString.string, @"Hello\n•\t Men att Pär är här\n•\t Men inte Pia");
